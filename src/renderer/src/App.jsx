@@ -25,20 +25,14 @@ const TipoStyled = styled.div`
 
 function App() {
 
-  const [ciclos, setCiclos]=useState(4)
   const[tipo, setTipo] = useState("foco")
   const[duracao, setDuracao] = useState(0)
-
-  const duracaoFormat = (min, sec) => {
-    setDuracao(min*60 + sec)
-  }
-
-
 
   return (
     <>
       <EstiloGlobal/>
       <Frame/>
+      
       <AppStyled>
         <Timer duracao={duracao}/>
         {/* <TipoStyled>

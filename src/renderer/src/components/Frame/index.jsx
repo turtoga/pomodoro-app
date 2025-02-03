@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { BsX, BsDashLg, BsSquare,BsPinAngle, BsPinAngleFill } from "react-icons/bs";
+import { BsX, BsDashLg, BsSquare,BsPinAngle, BsPinAngleFill, BsGear,BsGearFill } from "react-icons/bs";
+import Popover from '../Popover';
 
 const FrameStyle = styled.div`
   width: 100%;
@@ -11,6 +12,7 @@ const FrameStyle = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px #000 solid;
+  z-index: 1;
 
   button {
     background-color: transparent;
@@ -26,26 +28,23 @@ const FrameStyle = styled.div`
   }
 `
 
-const Botoes = styled.div`
+const BotoesDir = styled.div`
   -webkit-app-region: no-drag;
   display: flex;
-  button {
-    background-color: transparent;
-    border: none;
-    padding: 8px 12px;
-    transition: all 0.1s;
-    cursor: pointer;
-  }
 
   button:hover {
     background-color: #81cc84;
   }
 
   button:last-child:hover {
-    background-color: #d41e1e; 
+    background-color: #d41e1edd; 
   }
 
 
+`
+
+const BotoesLeft = styled.div`
+  display: flex;
 `
 
 
@@ -53,6 +52,7 @@ const Botoes = styled.div`
 const Frame = () => {
 
   const [pinned, setPinned] = useState(false)
+  const [isPopActive, setIsPopActive] = useState(false)
 
   const handleClose = () => {
     window.electron.ipcRenderer.send("close-window")
@@ -75,13 +75,21 @@ const Frame = () => {
   return (
     <>
       <FrameStyle>
-        <button onClick={handlePin}>{pinned? <BsPinAngleFill size={15}/>:<BsPinAngle size={15}/>}</button>
-        <Botoes>
+        <BotoesLeft>
+          <button onClick={() => setIsPopActive(!isPopActive)}>{isPopActive? <BsGearFill size={15}/> :<BsGear size={15}/>}</button>
+          <button onClick={handlePin}>{pinned? <BsPinAngleFill size={15}/>:<BsPinAngle size={15}/>}</button>
+        </BotoesLeft>
+        
+        <BotoesDir>
           <button onClick={handleMinimize}><BsDashLg size={15} /></button>
           {/* <button onClick={handleMaximize}><BsSquare size={11} /></button> */}
           <button onClick={handleClose}><BsX size={18} /></button>
-        </Botoes>
+        </BotoesDir>
       </FrameStyle>
+      {isPopActive && 
+        <Popover setIsPopActive={setIsPopActive}/>
+      }
+
     </>
     
   )

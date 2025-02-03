@@ -19,9 +19,15 @@ const ButtonsDiv = styled.div`
 `
 
 const Timer = ({ duracao }) => {
-  const [time, setTimer] = useState(duracao || 25 * 60) //inSecond
+
+  const duracaoFormat = (min) => {
+    return (min*60)
+  }
+
+  const [time, setTimer] = useState(() => duracaoFormat(duracao) || 25 * 60) //inSecond
   const [isRunning, setIsRunning] = useState(false)
   const [isIniciado, setIsIniciado] = useState(false)
+  
   
 
   const alarm = new Audio(Alarm)

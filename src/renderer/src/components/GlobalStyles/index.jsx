@@ -7,6 +7,9 @@ const EstiloGlobal = createGlobalStyle`
         background-color: #F8F4EB;
         font-family: Arial, Helvetica, sans-serif;
     }
+    input {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 `
 
 export default EstiloGlobal

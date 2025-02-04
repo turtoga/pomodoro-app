@@ -26,12 +26,17 @@ const TipoStyled = styled.div`
 function App() {
 
   const[tipo, setTipo] = useState("foco")
-  const[duracao, setDuracao] = useState(0)
+  const[duracao, setDuracao] = useState(25)
+
+  const handleSalvar = (valor) => {
+    setDuracao(valor)
+    localStorage.setItem("Tempo",valor)
+  }
 
   return (
     <>
       <EstiloGlobal/>
-      <Frame/>
+      <Frame handleSalvar={handleSalvar}/>
       
       <AppStyled>
         <Timer duracao={duracao}/>

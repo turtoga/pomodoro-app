@@ -20,11 +20,13 @@ const ButtonsDiv = styled.div`
 
 const Timer = ({ duracao }) => {
 
+  
+
   const duracaoFormat = (min) => {
-    return (min*60)
+    return min*60
   }
 
-  const [time, setTimer] = useState(() => duracaoFormat(duracao) || 25 * 60) //inSecond
+  const [time, setTimer] = useState(() => duracaoFormat(duracao)) //inSecond
   const [isRunning, setIsRunning] = useState(false)
   const [isIniciado, setIsIniciado] = useState(false)
   
@@ -32,6 +34,12 @@ const Timer = ({ duracao }) => {
 
   const alarm = new Audio(Alarm)
   alarm.volume = 0.2
+
+  
+
+  useEffect(() => {
+    setTimer(duracaoFormat(duracao)); 
+  }, [duracao]);
 
   useEffect(() => {
     let timer
@@ -75,7 +83,7 @@ const Timer = ({ duracao }) => {
   const handleReset = () => {
     setIsRunning(false)
     setIsIniciado(false)
-    setTimer(duracao || 25 * 60)
+    setTimer(duracao*60)
     if(!alarm.paused) {
       alarm.pause() // Stop the alarm when resetting
       alarm.currentTime = 0 // Reset the alarm to the start

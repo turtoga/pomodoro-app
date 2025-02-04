@@ -49,7 +49,7 @@ const BotoesLeft = styled.div`
 
 
 
-const Frame = () => {
+const Frame = ({handleSalvar}) => {
 
   const [pinned, setPinned] = useState(false)
   const [isPopActive, setIsPopActive] = useState(false)
@@ -87,7 +87,7 @@ const Frame = () => {
         </BotoesDir>
       </FrameStyle>
       {isPopActive && 
-        <Popover setIsPopActive={setIsPopActive}/>
+        <Popover handleSalvar={handleSalvar} setIsPopActive={setIsPopActive}/>
       }
 
     </>

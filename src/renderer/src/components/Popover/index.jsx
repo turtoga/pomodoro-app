@@ -12,14 +12,8 @@ const PopoverStyled = styled.div`
   
   top: 39px;
   width: 40%;
-  padding: 16px;
+  padding: 8px 8px;
 
-`
-
-const TiposContainer = styled.div`
-  gap: 40px;
-  max-width: 200px;
-  justify-content: center;
 `
 
 const Overlay = styled.div`
@@ -31,30 +25,77 @@ const Overlay = styled.div`
   padding: 0;
   border: none;
   background-color: #00000049;
+
 `
 
-const Popover = ({setIsPopActive}) => {
+const HeaderStyle = styled.header`
+  display: flex;
+  justify-content: center;
   
-  const [minFoco, setMinFoco] = useState(25)
+  border-bottom: 2px black dashed;
+  margin-bottom: 8px;
+
+  h3 {
+    padding: 4px;
+    margin: 0;
+  }
+
+  
+`
+
+const TempoContainer = styled.form`
+  margin: 8px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span{
+    font-size: 14px;
+  }
+`
+
+
+const TiposContainer = styled.div`
+  margin-top: 8px;
+  max-width: 40px;
+  margin: 8px 0px;
+
+  span{
+    font-size: 15px;
+  }
+
+  div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
+
+const Popover = ({setIsPopActive, handleSalvar}) => {
+  
+  const tempo = localStorage.getItem("Tempo")
+
+  const [minFoco, setMinFoco] = useState(tempo? tempo:25)
+
+
 
   return (
 
     <>
     <Overlay onClick={() => setIsPopActive(false)}/>
       <PopoverStyled>
-        <header>
-          Configurações
-        </header>
-        <div>
-          Tempo(Em minutos)
+        <HeaderStyle>
+          <h3>Ajustes</h3>
+        </HeaderStyle>
+        <TempoContainer>
+          <span>Tempo(Em minutos)</span>
           <TiposContainer>
             <div>
-              Foco
+              <span>Foco</span>
               <Input valor={minFoco} type="number" aoAlterado={valor => setMinFoco(valor)}/>
             </div>
-            <Button>Salvar</Button>
           </TiposContainer>
-        </div>
+          <Button handleClick={() => {handleSalvar(minFoco); setIsPopActive(false)}}>Salvar</Button>
+        </TempoContainer>
         
       </PopoverStyled>
       

@@ -12,6 +12,14 @@ const ButtonStyle = styled.button`
     box-shadow: 4px 6px 0px #000;
     -webkit-user-select: none;
     
+    &:hover {
+      background-color: #62b965
+    }
+
+    &:active {
+      background-color: #3ab63e
+    }
+
 `
 
 const Button = ({children, handleClick}) => {

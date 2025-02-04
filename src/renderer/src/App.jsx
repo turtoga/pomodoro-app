@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import EstiloGlobal from "./components/GlobalStyles"
 import Timer from "./components/Timer"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Frame from "./components/Frame"
 import Tipo from "./components/Tipo"
 import { FaUserNinja } from "react-icons/fa";
@@ -29,8 +29,16 @@ function App() {
   const[duracao, setDuracao] = useState(25)
 
   const handleSalvar = (valor) => {
+    if(valor>-1) {
+      setDuracao(valor)
+      localStorage.setItem("Tempo",valor)
+      return
+    }
+    
+    valor=0
     setDuracao(valor)
     localStorage.setItem("Tempo",valor)
+    
   }
 
   return (

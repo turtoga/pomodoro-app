@@ -9,10 +9,23 @@ const PopoverStyled = styled.div`
   border: 2px solid #000;
   border-bottom-right-radius: 16px;
   border-bottom-left-radius: 16px;
-  
+  border-top: none;
   top: 39px;
   width: 40%;
   padding: 8px 8px;
+  -webkit-user-select: none;
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -16px; 
+    left: 18px;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #F8F4EB ;
+  }
 
 `
 
@@ -35,9 +48,10 @@ const HeaderStyle = styled.header`
   border-bottom: 2px black dashed;
   margin-bottom: 8px;
 
-  h3 {
+  h5 {
     padding: 4px;
     margin: 0;
+    font-size: 16px;
   }
 
   
@@ -56,11 +70,12 @@ const TempoContainer = styled.form`
 
 const TiposContainer = styled.div`
   margin-top: 8px;
-  max-width: 40px;
+  max-width: 45px;
   margin: 8px 0px;
 
   span{
     font-size: 15px;
+    margin-bottom: 4px;
   }
 
   div{
@@ -76,22 +91,20 @@ const Popover = ({setIsPopActive, handleSalvar}) => {
 
   const [minFoco, setMinFoco] = useState(tempo? tempo:25)
 
-
-
   return (
 
     <>
     <Overlay onClick={() => setIsPopActive(false)}/>
       <PopoverStyled>
         <HeaderStyle>
-          <h3>Ajustes</h3>
+          <h5>Ajustes</h5>
         </HeaderStyle>
         <TempoContainer>
           <span>Tempo(Em minutos)</span>
           <TiposContainer>
             <div>
               <span>Foco</span>
-              <Input valor={minFoco} type="number" aoAlterado={valor => setMinFoco(valor)}/>
+              <Input valor={minFoco} step="1" min={0} type="number" aoAlterado={valor => {setMinFoco(valor);}}/>
             </div>
           </TiposContainer>
           <Button handleClick={() => {handleSalvar(minFoco); setIsPopActive(false)}}>Salvar</Button>

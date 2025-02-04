@@ -12,7 +12,6 @@ const FrameStyle = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px #000 solid;
-  z-index: 1;
 
   button {
     background-color: transparent;

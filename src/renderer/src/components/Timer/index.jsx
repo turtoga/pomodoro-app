@@ -6,7 +6,7 @@ import Alarm from './alarm.mp3'
 const TimerStyled = styled.div`
   h1 {
     margin: 0;
-    font-size: 100px;
+    font-size: clamp(100px, 20vw, 150px);
     text-align: center;
     -webkit-user-select: none;
   }
@@ -75,8 +75,8 @@ const Timer = ({ duracao }) => {
   const handleStop = () => {
     setIsRunning(false)
     if(!alarm.paused) {
-      alarm.pause() // Stop the alarm when resetting
-      alarm.currentTime = 0 // Reset the alarm to the start
+      alarm.pause() 
+      alarm.currentTime = 0 
     }
   }
 
@@ -85,8 +85,8 @@ const Timer = ({ duracao }) => {
     setIsIniciado(false)
     setTimer(duracao*60)
     if(!alarm.paused) {
-      alarm.pause() // Stop the alarm when resetting
-      alarm.currentTime = 0 // Reset the alarm to the start
+      alarm.pause() 
+      alarm.currentTime = 0 
     }
   }
 
@@ -102,13 +102,13 @@ const Timer = ({ duracao }) => {
       <ButtonsDiv>
         {isRunning ? (
           <>
-            {time>0? <Button handleClick={handleStop}>Pausar</Button>:""}
-            <Button handleClick={handleReset}>Resetar</Button>
+            {time>0? <Button clamp={true} handleClick={handleStop}>Pausar</Button>:""}
+            <Button clamp={true} handleClick={handleReset}>Resetar</Button>
           </>
         ) : (
           <>
-            <Button handleClick={handleStart}>{isIniciado ? 'Continuar' : 'Começar'}</Button>
-            {isIniciado ? <Button handleClick={handleReset}>Resetar</Button> : ''}
+            <Button clamp={true} handleClick={handleStart}>{isIniciado ? 'Continuar' : 'Começar'}</Button>
+            {isIniciado ? <Button clamp={true} handleClick={handleReset}>Resetar</Button> : ''}
             
           </>
         )}

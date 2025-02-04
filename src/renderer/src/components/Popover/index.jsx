@@ -11,7 +11,7 @@ const PopoverStyled = styled.div`
   border-bottom-left-radius: 16px;
   border-top: none;
   top: 39px;
-  width: 40%;
+  width: 12rem;
   padding: 8px 8px;
   -webkit-user-select: none;
 

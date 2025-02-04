@@ -27,6 +27,7 @@ function createWindow() {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
+  
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
@@ -79,9 +80,18 @@ app.whenReady().then(() => {
     const currentWindow = BrowserWindow.getFocusedWindow();
     if (currentWindow) {
       const isAlwaysOnTop = currentWindow.isAlwaysOnTop();
-      currentWindow.setAlwaysOnTop(!isAlwaysOnTop);  // Alterna o estado de "sempre no topo"
+      currentWindow.setAlwaysOnTop(!isAlwaysOnTop);  
     }
   });
+
+  ipcMain.on('restore-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+    if(currentWindow) {
+      currentWindow.restore()
+    }
+  })
+
+  
 
 
   createWindow()

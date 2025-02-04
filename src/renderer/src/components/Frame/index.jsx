@@ -52,6 +52,8 @@ const Frame = ({handleSalvar}) => {
 
   const [pinned, setPinned] = useState(false)
   const [isPopActive, setIsPopActive] = useState(false)
+  const [isMaximize, setIsMaximize] = useState(false)
+  
 
   const handleClose = () => {
     window.electron.ipcRenderer.send("close-window")
@@ -62,7 +64,14 @@ const Frame = ({handleSalvar}) => {
   }
 
   const handleMaximize = () => {
-    window.electron.ipcRenderer.send("maximize-window")
+    if(!isMaximize) {
+      setIsMaximize(true)
+      window.electron.ipcRenderer.send("maximize-window")
+    } else {
+      setIsMaximize(false)
+      window.electron.ipcRenderer.send("restore-window")
+    }
+    
   }
 
   const handlePin = () => {
@@ -81,7 +90,7 @@ const Frame = ({handleSalvar}) => {
         
         <BotoesDir>
           <button onClick={handleMinimize}><BsDashLg size={15} /></button>
-          {/* <button onClick={handleMaximize}><BsSquare size={11} /></button> */}
+          <button onClick={handleMaximize}><BsSquare size={11} /></button>
           <button onClick={handleClose}><BsX size={18} /></button>
         </BotoesDir>
       </FrameStyle>

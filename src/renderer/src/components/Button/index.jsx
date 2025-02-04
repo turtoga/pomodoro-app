@@ -6,11 +6,11 @@ const ButtonStyle = styled.button`
     padding: 4px 12px;
     background-color: #5CB05F;
     border-radius: 16px;
-    font-size: 20px;
     font-weight: 600;
     border: 2px solid #000;
     box-shadow: 4px 6px 0px #000;
     -webkit-user-select: none;
+    font-size: ${({ clamp }) => clamp ? 'clamp(20px, 4vw, 30px)' : '20px'};
     
     &:hover {
       background-color: #62b965
@@ -22,9 +22,9 @@ const ButtonStyle = styled.button`
 
 `
 
-const Button = ({children, handleClick}) => {
+const Button = ({children, handleClick, clamp=false}) => {
   return (
-    <ButtonStyle onClick={handleClick}>
+    <ButtonStyle clamp={clamp} onClick={handleClick}>
         {children}
     </ButtonStyle>
   )

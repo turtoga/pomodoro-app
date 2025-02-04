@@ -25,17 +25,19 @@ const TipoStyled = styled.div`
 
 function App() {
 
+  const pomodoroTime = localStorage.getItem("Tempo") || 25;
+
   const[tipo, setTipo] = useState("foco")
-  const[duracao, setDuracao] = useState(25)
+  const[duracao, setDuracao] = useState(pomodoroTime)
 
   const handleSalvar = (valor) => {
-    if(valor>-1) {
+    if(valor>-1 && valor < 10000) {
       setDuracao(valor)
       localStorage.setItem("Tempo",valor)
       return
     }
     
-    valor=0
+    valor=25
     setDuracao(valor)
     localStorage.setItem("Tempo",valor)
     

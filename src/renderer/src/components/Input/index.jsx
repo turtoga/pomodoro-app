@@ -16,9 +16,9 @@ const InputStyle = styled.input`
   }
 `
 
-const Input = ({type, valor, aoAlterado, min="", step=""}) => {
+const Input = ({type, valor, aoAlterado, min="", step="", max=""}) => {
   return (
-    <InputStyle type={type} onChange={(e)=>aoAlterado(e.target.value)} step={step} min={min} value={valor}>
+    <InputStyle type={type} onChange={(e)=>aoAlterado(e.target.value)} step={step} min={min} max={9999} value={valor}>
 
     </InputStyle>
   )

@@ -23,7 +23,7 @@ const Timer = ({ duracao }) => {
   
 
   const duracaoFormat = (min) => {
-    return min*60
+    return Math.floor(min*60)
   }
 
   const [time, setTimer] = useState(() => duracaoFormat(duracao)) //inSecond
@@ -47,7 +47,7 @@ const Timer = ({ duracao }) => {
       timer = setInterval(() => {
         setTimer((prevTime) => {
           if(prevTime>0) {
-            return prevTime > 0 ? prevTime - 1 : prevTime
+            return prevTime - 1 
           } else {
             alarm.play();
             return prevTime;
@@ -59,10 +59,13 @@ const Timer = ({ duracao }) => {
   }, [isRunning, time])
 
   const timeFormat = (tempo) => {
-    const min = Math.floor(tempo / 60) //asrredonda pra baixo
+    const hour = Math.floor(tempo/3600)
+    const min = Math.floor(( tempo%3600 )/ 60) 
     const sec = time % 60
 
-    return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
+    const hora = hour>0?`${String(hour)}:`:``
+
+    return `${hora}${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
   }
 
   const handleStart = () => {

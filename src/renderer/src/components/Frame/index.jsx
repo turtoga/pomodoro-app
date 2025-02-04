@@ -36,7 +36,7 @@ const BotoesDir = styled.div`
   }
 
   button:last-child:hover {
-    background-color: #d41e1edd; 
+    background-color: #ff0000d1; 
   }
 
 

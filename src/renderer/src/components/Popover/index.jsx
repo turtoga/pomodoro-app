@@ -74,7 +74,7 @@ const TiposContainer = styled.div`
   margin: 8px 0px;
 
   span{
-    font-size: 15px;
+    font-size: 12px;
     margin-bottom: 4px;
   }
 
@@ -104,7 +104,7 @@ const Popover = ({setIsPopActive, handleSalvar}) => {
           <TiposContainer>
             <div>
               <span>Foco</span>
-              <Input valor={minFoco} step="1" min={0} type="number" aoAlterado={valor => {setMinFoco(valor);}}/>
+              <Input valor={minFoco} step="1" max={60} min={0} type="number" aoAlterado={valor => {setMinFoco(valor);}}/>
             </div>
           </TiposContainer>
           <Button handleClick={() => {handleSalvar(minFoco); setIsPopActive(false)}}>Salvar</Button>

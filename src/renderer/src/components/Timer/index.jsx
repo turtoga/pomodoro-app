@@ -6,9 +6,13 @@ import Alarm from './alarm.mp3'
 const TimerStyled = styled.div`
   h1 {
     margin: 0;
-    font-size: clamp(100px, 20vw, 150px);
+    font-size: clamp(100px, 10vw, 120px);
     text-align: center;
     -webkit-user-select: none;
+
+    @media (min-width: 1220px) and (min-height: 400px) {
+      font-size: clamp(120px, 10vw, 300px); 
+    }
   }
 `
 
@@ -18,7 +22,7 @@ const ButtonsDiv = styled.div`
   gap: 16px;
 `
 
-const Timer = ({ duracao }) => {
+const Timer = ({ duracao, tipo, setTipo }) => {
 
   
 
@@ -29,8 +33,7 @@ const Timer = ({ duracao }) => {
   const [time, setTimer] = useState(() => duracaoFormat(duracao)) //inSecond
   const [isRunning, setIsRunning] = useState(false)
   const [isIniciado, setIsIniciado] = useState(false)
-  
-  
+  const [ciclo,setCiclo] = useState(0)
 
   const alarm = new Audio(Alarm)
   alarm.volume = 0.2
@@ -93,11 +96,20 @@ const Timer = ({ duracao }) => {
     }
   }
 
-  const handleProx = () =>{
-    setIsRunning(false)
-    setIsIniciado(false)
-    setTimer(duracao || 25 * 60)
-  }
+  const handleProx = () => {
+    handleReset();
+    if (tipo === "foco") {
+      if (ciclo < 3) {
+        setCiclo(ciclo + 1);
+        setTipo("pausa");
+      } else {
+        setCiclo(0);
+        setTipo("intervalo");
+      }
+    } else if (tipo === "pausa" || tipo === "intervalo") {
+      setTipo("foco");
+    }
+  };
 
   return (
     <TimerStyled>
@@ -105,13 +117,13 @@ const Timer = ({ duracao }) => {
       <ButtonsDiv>
         {isRunning ? (
           <>
-            {time>0? <Button clamp={true} handleClick={handleStop}>Pausar</Button>:""}
-            <Button clamp={true} handleClick={handleReset}>Resetar</Button>
+            {time>0? <Button clamp={true} handleClick={handleStop}>Pausar</Button>:<Button clamp={true} handleClick={handleReset}>Resetar</Button>}
+            <Button clamp={true} handleClick={handleProx}>Próximo</Button>
           </>
         ) : (
           <>
             <Button clamp={true} handleClick={handleStart}>{isIniciado ? 'Continuar' : 'Começar'}</Button>
-            {isIniciado ? <Button clamp={true} handleClick={handleReset}>Resetar</Button> : ''}
+            {isIniciado && <Button clamp={true} handleClick={handleReset}>Resetar</Button>}
             
           </>
         )}

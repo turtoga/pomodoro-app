@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { BsX, BsDashLg, BsSquare,BsPinAngle, BsPinAngleFill, BsGear,BsGearFill } from "react-icons/bs";
+import { BsX, BsDashLg, BsSquare,BsPinAngle, BsPinAngleFill, BsGear,BsGearFill, BsInfoCircle } from "react-icons/bs";
 import Popover from '../Popover';
 
 const FrameStyle = styled.div`

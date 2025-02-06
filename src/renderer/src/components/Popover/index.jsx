@@ -7,13 +7,14 @@ const PopoverStyled = styled.div`
   background-color: #F8F4EB;
   position: absolute;
   border: 2px solid #000;
-  border-bottom-right-radius: 16px;
-  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   border-top: none;
   top: 39px;
-  width: 12rem;
-  padding: 8px 8px;
+  width: 15rem;
+  padding: 8px 20px;
   -webkit-user-select: none;
+  z-index: 2;
 
 
   &::before {
@@ -38,7 +39,7 @@ const Overlay = styled.div`
   padding: 0;
   border: none;
   background-color: #00000049;
-
+  z-index: 1;
 `
 
 const HeaderStyle = styled.header`
@@ -59,9 +60,6 @@ const HeaderStyle = styled.header`
 
 const TempoContainer = styled.form`
   margin: 8px 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   span{
     font-size: 14px;
   }
@@ -70,13 +68,9 @@ const TempoContainer = styled.form`
 
 const TiposContainer = styled.div`
   margin-top: 8px;
-  max-width: 45px;
-  margin: 8px 0px;
-
-  span{
-    font-size: 12px;
-    margin-bottom: 4px;
-  }
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 
   div{
     display: flex;
@@ -85,11 +79,31 @@ const TiposContainer = styled.div`
   }
 `
 
+const BotaoContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+`
+
+const Titulo = styled.span`
+  font-size: 12px;
+  margin-bottom: 4px;
+`
+
 const Popover = ({setIsPopActive, handleSalvar}) => {
   
-  const tempo = localStorage.getItem("Tempo")
+  
+  const temposSalvo = JSON.parse(localStorage.getItem("tempos")) || {}
 
-  const [minFoco, setMinFoco] = useState(tempo? tempo:25)
+  const [minFoco, setMinFoco] = useState(temposSalvo.foco || 25)
+  const [minPausa, setMinPausa] = useState(temposSalvo.pausa || 5)
+  const [minIntervalo, setMinIntervalo] = useState(temposSalvo.intervalo || 15)
+
+  const novosTempos = {
+    foco: minFoco,
+    pausa: minPausa,
+    intervalo: minIntervalo
+  }
 
   return (
 
@@ -103,11 +117,22 @@ const Popover = ({setIsPopActive, handleSalvar}) => {
           <span>Tempo(Em minutos)</span>
           <TiposContainer>
             <div>
-              <span>Foco</span>
+              <Titulo>Foco</Titulo>
               <Input valor={minFoco} step="1" max={60} min={0} type="number" aoAlterado={valor => {setMinFoco(valor);}}/>
             </div>
+            <div>
+              <Titulo>Pausa</Titulo>
+              <Input valor={minPausa} step="1" max={60} min={0} type="number" aoAlterado={valor => {setMinPausa(valor);}}/>
+            </div>
+            <div>
+              <Titulo>Intervalo</Titulo>
+              <Input valor={minIntervalo} step="1" max={60} min={0} type="number" aoAlterado={valor => {setMinIntervalo(valor);}}/>
+            </div>
           </TiposContainer>
-          <Button handleClick={() => {handleSalvar(minFoco); setIsPopActive(false)}}>Salvar</Button>
+          <BotaoContainer>
+            <Button handleClick={() => {handleSalvar(novosTempos); setIsPopActive(false)}}>Salvar</Button>
+          </BotaoContainer>
+          
         </TempoContainer>
         
       </PopoverStyled>

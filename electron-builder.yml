@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: pomodoro-app
+appId: com.pomodoro.app
+productName: Pomodoro
 directories:
   buildResources: build
 files:
@@ -11,19 +11,14 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: pomodoro-app
+  executableName: Pomodoro
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ${productName}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
   entitlementsInherit: build/entitlements.mac.plist
-  extendInfo:
-    - NSCameraUsageDescription: Application requests access to the device's camera.
-    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
-    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
-    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
   notarize: false
 dmg:
   artifactName: ${name}-${version}.${ext}
@@ -32,11 +27,14 @@ linux:
     - AppImage
     - snap
     - deb
-  maintainer: electronjs.org
+  maintainer: "Turtoga"
   category: Utility
+  synopsis: "Aplicativo de Pomodoro para aumentar produtividade."
+  description: "Pomodoro é um aplicativo de gerenciamento de tempo baseado na técnica Pomodoro."
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: turtoga
+  repo: pomodoro-app

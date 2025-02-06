@@ -21,41 +21,80 @@ const TipoStyled = styled.div`
   display: flex;
   margin-top: 24px;
   gap: 8px;
+  position: absolute;
+  bottom: 20px;
+
+  svg {
+    font-size: 16px;
+  }
+  
+  @media  (min-height: 400px) {
+    position: relative;
+    margin-top: 40px;
+  }
 `
 
 function App() {
 
-  const pomodoroTime = localStorage.getItem("Tempo") || 25;
+  //Variáveis
+  const tempos = JSON.parse(localStorage.getItem("tempos")) || {
+    foco: 25,
+    pausa: 5,
+    intervalo: 15,
+  };
+  
+  const [tipo, setTipo] = useState("foco");
+  const [duracao, setDuracao] = useState(tempos.foco);
+  const [atualizar, setAtualizar] = useState(false)
 
-  const[tipo, setTipo] = useState("foco")
-  const[duracao, setDuracao] = useState(pomodoroTime)
+  //Funções
+  useEffect(() => {
+    switch (tipo) {
+      case "foco":
+        setDuracao(tempos.foco)
+        break;
 
-  const handleSalvar = (valor) => {
-    if(valor>-1 && valor < 10000) {
-      setDuracao(valor)
-      localStorage.setItem("Tempo",valor)
-      return
+      case "pausa":
+        setDuracao(tempos.pausa)
+        break;
+
+      case "intervalo":
+        setDuracao(tempos.intervalo)
+        break;  
+    
+      default:
+        break;
     }
-    
-    valor=25
-    setDuracao(valor)
-    localStorage.setItem("Tempo",valor)
-    
+    setAtualizar(false)
+
+  }, [tipo, atualizar])
+
+  const handleSalvar = (tempos) => {
+    const novosTempos = {
+      foco: Math.min(Math.max(Number(tempos.foco) || 25, 0.1), 9999), 
+      pausa: Math.min(Math.max(Number(tempos.pausa) || 5, 0.1), 9999), 
+      intervalo: Math.min(Math.max(Number(tempos.intervalo) || 15, 0.1), 9999), 
+    }
+
+    localStorage.setItem("tempos", JSON.stringify(novosTempos));
+    setAtualizar(true)
+  }
+
+  const handleOnChangeTipo = (type) => {
+    setTipo(type)
   }
 
   return (
     <>
       <EstiloGlobal/>
       <Frame handleSalvar={handleSalvar}/>
-      
       <AppStyled>
-        <Timer duracao={duracao}/>
-        {/* <TipoStyled>
-          <Tipo icon={<FaUserNinja size={16}/>} />
-          <Tipo icon={<MdSelfImprovement size={16}/>}/>
-          <Tipo icon={<GiNightSleep size={16}/>}/>
-        </TipoStyled> */}
-        
+        <Timer tipo={tipo} setTipo={setTipo} duracao={duracao}/>
+        <TipoStyled>
+          <Tipo tipo={"foco"} handleOnChangeTipo={handleOnChangeTipo} ativo={tipo==="foco"} color="#e94444" inaColor="#8d4d4d" icon={<FaUserNinja/>} />
+          <Tipo tipo={"pausa"} handleOnChangeTipo={handleOnChangeTipo} ativo={tipo==="pausa"} color="#44bae9" inaColor="#4d808d" icon={<MdSelfImprovement/>}/>
+          <Tipo tipo={"intervalo"} handleOnChangeTipo={handleOnChangeTipo} ativo={tipo==="intervalo"} color="#d9e944" inaColor="#8d8c4d" icon={<GiNightSleep/>}/>
+        </TipoStyled>
       </AppStyled>
       
     </>

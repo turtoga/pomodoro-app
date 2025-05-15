@@ -26,14 +26,5 @@ Experiência responsiva e fluida com tecnologias web modernas.
 ## 📦 Download
 Você pode baixar a versão mais recente aqui
 
-## 💻 Como instalar e rodar
-```bash
-$ npm install
-```
-### Development
-
-```bash
-$ npm run dev
-```
-
+[🔗 Download](https://drive.google.com/file/d/1R8oRBqKoerkRnmUx6f5XwMJYxLglK_az/view)
 

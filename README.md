@@ -1,4 +1,7 @@
 # 🕒 Pomodoro App
+
+![Demonstração do app](./pomodorodemo.gif)
+
 Este é um app desktop de Pomodoro desenvolvido com React, Vite e Electron.
 
 A técnica Pomodoro é uma metodologia de gerenciamento de tempo que alterna períodos de foco com pequenas pausas, ajudando na produtividade e no controle do tempo. Ideal para estudos, trabalho ou qualquer tarefa que exija concentração.
